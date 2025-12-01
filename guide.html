@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>くらべる君の使い方ガイド</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>くらべる君の使い方ガイド</h1>
+    <p class="sub">このページでは、くらべる君の各ツールの使い方をご案内します。</p>
+
+    <section>
+      <h2>1. くらべるって、どういうこと？</h2>
+      <p>
+        くらべることは、ただ数字を比べることじゃありません。<br>
+        違いを見つけて、選ぶ理由を見つけること。<br>
+        くらべる君は、そんな「気づきの道具箱」です。
+      </p>
+    </section>
+
+    <section>
+      <h2>2. ツールの使い方</h2>
+      <ul>
+        <li><strong>数値を入力</strong>：AとBの条件を入力します。</li>
+        <li><strong>比較ボタンを押す</strong>：1日・1ヶ月・1年のコストが表示されます。</li>
+        <li><strong>結果を読む</strong>：どちらが安いか、どんな違いがあるかを見てみましょう。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. よくある質問</h2>
+      <details>
+        <summary>Q. AとBって何を入れればいいの？</summary>
+        <p>比較したい2つの選択肢を入れてください。たとえば「電気ポットA」と「電気ポットB」など。</p>
+      </details>
+      <details>
+        <summary>Q. 単価ってどこで調べるの？</summary>
+        <p>電気代や水道代の単価は、お住まいの地域の料金表を参考にしてください。目安も初期値として入っています。</p>
+      </details>
+    </section>
+
+    <section>
+      <h2>4. もっと便利に使うには？</h2>
+      <p>
+        ホーム画面の「その他のツール」から、生活に役立つ比較ツールを探せます。<br>
+        もし「こんな比較があったらいいな」と思ったら、<a href="suggest.html">こちらから提案</a>してくださいね。
+      </p>
+    </section>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
+</body>
+</html>
