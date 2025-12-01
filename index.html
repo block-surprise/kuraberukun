@@ -5,27 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>くらべる君</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
   <main>
-    <h1>くらべる君へようこそ！</h1>
-    <p>いろんな計算ツールで、かしこくおトクにくらべよう！</p>
+    <h1>くらべる君</h1>
+    <p class="sub">くらしの中の「どっちがいい？」を、そっと見つめる小さな道具箱。</p>
 
-    <ul>
-      <li><a href="price.html">💰 割安チェッカー</a></li>
-      <li><a href="bulk.html">📦 まとめ買い vs 単品</a></li>
-      <li><a href="monthly.html">📅 1ヶ月あたりのコスト</a></li>
-      <li><a href="more.html">⋯ その他のツール</a></li>
-    </ul>
+    <div class="feature-grid">
+      <a href="price.html" class="feature-box">
+        <i class="fas fa-balance-scale"></i>
+        <span>割安チェッカー</span>
+      </a>
+      <a href="bulk.html" class="feature-box">
+        <i class="fas fa-boxes-stacked"></i>
+        <span>まとめ買い</span>
+      </a>
+      <a href="monthly.html" class="feature-box">
+        <i class="fas fa-calendar-alt"></i>
+        <span>月額コスト</span>
+      </a>
+      <a href="more.html" class="feature-box">
+        <i class="fas fa-ellipsis-h"></i>
+        <span>その他のツール</span>
+      </a>
+    </div>
+
+    <section class="home-message">
+      <h2>ようこそ、くらべる君へ</h2>
+      <p>
+        ここは、数字の奥にある「納得」を見つける場所。<br>
+        くらべることで、選ぶことが少しだけやさしくなる。<br>
+        そんな静かな体験を、そっと届けられたらうれしいです。
+      </p>
+    </section>
   </main>
 
-  <nav class="nav">
-    <a href="index.html">🏠 ホーム</a>
-    <a href="price.html">💰 割安</a>
-    <a href="bulk.html">📦 まとめ</a>
-    <a href="monthly.html">📅 月額</a>
-    <a href="more.html">⋯ その他</a>
-  </nav>
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
 </body>
 </html>
-
