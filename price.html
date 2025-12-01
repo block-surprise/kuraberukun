@@ -5,38 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>割安チェッカー - くらべる君</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
   <main>
     <h1>💰 割安チェッカー</h1>
-    <p>2つの商品を比べて、どちらが割安かチェックしよう！</p>
+    <p class="sub">2つの商品を比べて、どちらが割安か、そっと確かめてみよう。</p>
 
-    <label>価格1: <input id="price1" type="number" /> 円</label><br />
-    <label>量1: <input id="amount1" type="number" /> g / ml / 個</label><br /><br />
+    <div class="form-group">
+      <label for="price1">価格1</label>
+      <input id="price1" type="number" placeholder="例：198" />
+    </div>
 
-    <label>価格2: <input id="price2" type="number" /> 円</label><br />
-    <label>量2: <input id="amount2" type="number" /> g / ml / 個</label><br /><br />
+    <div class="form-group">
+      <label for="amount1">量1</label>
+      <input id="amount1" type="number" placeholder="例：500（g / ml / 個）" />
+    </div>
 
-    <button onclick="compare()">どっちが安い？</button>
+    <div class="form-group">
+      <label for="price2">価格2</label>
+      <input id="price2" type="number" placeholder="例：158" />
+    </div>
 
-    <p id="result"></p>
+    <div class="form-group">
+      <label for="amount2">量2</label>
+      <input id="amount2" type="number" placeholder="例：400" />
+    </div>
+
+    <button class="compare-btn" onclick="compare()">どっちが安い？</button>
+
+    <p id="result" class="result"></p>
   </main>
 
-  <nav class="nav">
-    <a href="index.html">🏠 ホーム</a>
-    <a href="price.html">💰 割安</a>
-    <a href="bulk.html">📦 まとめ</a>
-    <a href="monthly.html">📅 月額</a>
-    <a href="more.html">⋯ その他</a>
-  </nav>
-
+  <div id="nav-placeholder"></div>
   <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+
     function compare() {
       const p1 = parseFloat(document.getElementById('price1').value);
       const a1 = parseFloat(document.getElementById('amount1').value);
       const p2 = parseFloat(document.getElementById('price2').value);
       const a2 = parseFloat(document.getElementById('amount2').value);
-
       const result = document.getElementById('result');
 
       if (p1 && a1 && p2 && a2) {
@@ -44,17 +57,18 @@
         const unit2 = p2 / a2;
 
         if (unit1 < unit2) {
-          result.textContent = '✅ 商品1の方が割安だよ！';
+          result.textContent = '✅ 商品1の方が割安です。';
         } else if (unit1 > unit2) {
-          result.textContent = '✅ 商品2の方が割安だよ！';
+          result.textContent = '✅ 商品2の方が割安です。';
         } else {
-          result.textContent = '🤝 どちらも同じ単価だよ！';
+          result.textContent = '🤝 どちらも同じ単価です。';
         }
       } else {
-        result.textContent = '⚠️ すべての項目を入力してね！';
+        result.textContent = '⚠️ すべての項目を入力してください。';
       }
     }
   </script>
 </body>
 </html>
+
 
