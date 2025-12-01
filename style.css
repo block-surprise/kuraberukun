@@ -188,6 +188,24 @@ input:focus {
   margin-bottom: 0.5rem;
 }
 
+.tool-footer-links {
+  margin-top: 2em;
+  text-align: center;
+  font-size: 0.95em;
+  color: #666;
+}
+
+.tool-footer-links a {
+  color: #444;
+  text-decoration: none;
+  margin: 0 0.5em;
+  transition: color 0.2s ease;
+}
+
+.tool-footer-links a:hover {
+  color: #007acc;
+}
+
 /* PC用ナビ切り替え */
 @media (min-width: 768px) {
   body {
