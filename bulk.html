@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>まとめ買いチェッカー - くらべる君</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <main>
+    <h1>📦 まとめ買い vs 単品</h1>
+    <p class="sub">まとめ買いと単品、どちらがおトクか、静かに見比べてみよう。</p>
+
+    <div class="form-group">
+      <label for="bulkPrice">まとめ買い価格</label>
+      <input id="bulkPrice" type="number" placeholder="例：980" />
+    </div>
+
+    <div class="form-group">
+      <label for="bulkCount">まとめ買い個数</label>
+      <input id="bulkCount" type="number" placeholder="例：6" />
+    </div>
+
+    <div class="form-group">
+      <label for="singlePrice">単品価格</label>
+      <input id="singlePrice" type="number" placeholder="例：180" />
+    </div>
+
+    <button class="compare-btn" onclick="checkBulk()">どっちがおトク？</button>
+
+    <p id="bulkResult" class="result"></p>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+
+    function checkBulk() {
+      const bulkPrice = parseFloat(document.getElementById('bulkPrice').value);
+      const bulkCount = parseFloat(document.getElementById('bulkCount').value);
+      const singlePrice = parseFloat(document.getElementById('singlePrice').value);
+      const result = document.getElementById('bulkResult');
+
+      if (bulkPrice && bulkCount && singlePrice) {
+        const bulkUnit = bulkPrice / bulkCount;
+
+        if (bulkUnit < singlePrice) {
+          result.textContent = '✅ まとめ買いの方がおトクです。';
+        } else if (bulkUnit > singlePrice) {
+          result.textContent = '✅ 単品の方がおトクです。';
+        } else {
+          result.textContent = '🤝 どちらも同じ単価です。';
+        }
+      } else {
+        result.textContent = '⚠️ すべての項目を入力してください。';
+      }
+    }
+  </script>
+</body>
+</html>
