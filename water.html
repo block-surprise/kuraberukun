@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>水道代チェッカー - くらべる君</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>水道代チェッカー</h1>
+    <p class="sub">毎日の使用量から月・年の水道代を計算します。</p>
+
+    <div class="form-group">
+      <label for="liters">使用量 (L/日)</label>
+      <input type="number" id="liters" placeholder="例: 200" />
+    </div>
+
+    <div class="form-group">
+      <label for="unitPrice">水道料金単価 (円/m³)</label>
+      <input type="number" id="unitPrice" value="200" />
+    </div>
+
+    <button class="compare-btn" onclick="calcWater()">計算する</button>
+
+    <div class="result" id="result"></div>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+
+    function calcWater() {
+      const liters = parseFloat(document.getElementById("liters").value);
+      const unitPrice = parseFloat(document.getElementById("unitPrice").value);
+
+      if (isNaN(liters) || isNaN(unitPrice)) {
+        document.getElementById("result").textContent = "数値を入力してください。";
+        return;
+      }
+
+      const dailyM3 = liters / 1000;
+      const dailyCost = dailyM3 * unitPrice;
+      const monthlyCost = dailyCost * 30;
+      const yearlyCost = monthlyCost * 12;
+
+      document.getElementById("result").textContent =
+        `1日: ${dailyCost.toFixed(1)}円 ／ 月: ${monthlyCost.toFixed(0)}円 ／ 年: ${yearlyCost.toFixed(0)}円`;
+      document.getElementById("result").classList.add("show");
+    }
+  </script>
+</body>
+</html>
