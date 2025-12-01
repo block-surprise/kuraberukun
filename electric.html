@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>電気代チェッカー - くらべる君</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>電気代チェッカー</h1>
+    <p class="sub">家電や照明の「消費電力 × 使用時間」から、月・年の電気代を計算します。</p>
+
+    <!-- 入力フォーム -->
+    <div class="form-group">
+      <label for="watt">消費電力 (W)</label>
+      <input type="number" id="watt" placeholder="例: 100" />
+    </div>
+
+    <div class="form-group">
+      <label for="hours">使用時間 (時間/日)</label>
+      <input type="number" id="hours" placeholder="例: 5" />
+    </div>
+
+    <div class="form-group">
+      <label for="unitPrice">電気料金単価 (円/kWh)</label>
+      <input type="number" id="unitPrice" value="31" />
+    </div>
+
+    <button class="compare-btn" onclick="calcElectric()">計算する</button>
+
+    <!-- 結果表示 -->
+    <div class="result" id="result"></div>
+  </main>
+
+  <!-- ナビゲーションバーを読み込み -->
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+
+    function calcElectric() {
+      const watt = parseFloat(document.getElementById("watt").value);
+      const hours = parseFloat(document.getElementById("hours").value);
+      const unitPrice = parseFloat(document.getElementById("unitPrice").value);
+
+      if (isNaN(watt) || isNaN(hours) || isNaN(unitPrice)) {
+        document.getElementById("result").textContent = "数値を入力してください。";
+        return;
+      }
+
+      const dailyKWh = (watt / 1000) * hours;
+      const dailyCost = dailyKWh * unitPrice;
+      const monthlyCost = dailyCost * 30;
+      const yearlyCost = monthly
