@@ -9,23 +9,42 @@
 <body>
   <main>
     <h1>水道代チェッカー</h1>
-    <p class="sub">毎日の使用量から月・年の水道代を計算します。</p>
+    <p class="sub">AとBの使用量を比較して、どちらの水道代が安いかを計算します。</p>
 
-    <div class="form-group">
-      <label for="liters">使用量 (L/日)</label>
-      <input type="number" id="liters" placeholder="例: 200" />
+    <!-- A/B比較ボックス -->
+    <div class="compare-box">
+      <!-- A側 -->
+      <div class="compare-side">
+        <h3>A</h3>
+        <div class="form-group">
+          <label for="litersA">使用量 (L/日)</label>
+          <input type="number" id="litersA" placeholder="例: 200" />
+        </div>
+        <div class="form-group">
+          <label for="unitPriceA">単価 (円/m³)</label>
+          <input type="number" id="unitPriceA" value="200" />
+        </div>
+      </div>
+
+      <!-- B側 -->
+      <div class="compare-side">
+        <h3>B</h3>
+        <div class="form-group">
+          <label for="litersB">使用量 (L/日)</label>
+          <input type="number" id="litersB" placeholder="例: 250" />
+        </div>
+        <div class="form-group">
+          <label for="unitPriceB">単価 (円/m³)</label>
+          <input type="number" id="unitPriceB" value="200" />
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="unitPrice">水道料金単価 (円/m³)</label>
-      <input type="number" id="unitPrice" value="200" />
-    </div>
-
-    <button class="compare-btn" onclick="calcWater()">計算する</button>
-
+    <button class="compare-btn" onclick="calcWaterCompare()">比較する</button>
     <div class="result" id="result"></div>
   </main>
 
+  <!-- 共通ナビ -->
   <div id="nav-placeholder"></div>
   <script>
     fetch("nav.html")
@@ -34,22 +53,37 @@
         document.getElementById("nav-placeholder").innerHTML = html;
       });
 
-    function calcWater() {
-      const liters = parseFloat(document.getElementById("liters").value);
-      const unitPrice = parseFloat(document.getElementById("unitPrice").value);
+    function calcSide(liters, unitPrice) {
+      const dailyM3 = liters / 1000;          // m³に変換
+      const dailyCost = dailyM3 * unitPrice;  // 1日
+      const monthlyCost = dailyCost * 30;     // 月
+      const yearlyCost = monthlyCost * 12;    // 年
+      return { dailyCost, monthlyCost, yearlyCost };
+    }
 
-      if (isNaN(liters) || isNaN(unitPrice)) {
+    function calcWaterCompare() {
+      // A側
+      const litersA = parseFloat(document.getElementById("litersA").value);
+      const unitPriceA = parseFloat(document.getElementById("unitPriceA").value);
+
+      // B側
+      const litersB = parseFloat(document.getElementById("litersB").value);
+      const unitPriceB = parseFloat(document.getElementById("unitPriceB").value);
+
+      if (isNaN(litersA) || isNaN(unitPriceA) || isNaN(litersB) || isNaN(unitPriceB)) {
         document.getElementById("result").textContent = "数値を入力してください。";
         return;
       }
 
-      const dailyM3 = liters / 1000;
-      const dailyCost = dailyM3 * unitPrice;
-      const monthlyCost = dailyCost * 30;
-      const yearlyCost = monthlyCost * 12;
+      const A = calcSide(litersA, unitPriceA);
+      const B = calcSide(litersB, unitPriceB);
 
-      document.getElementById("result").textContent =
-        `1日: ${dailyCost.toFixed(1)}円 ／ 月: ${monthlyCost.toFixed(0)}円 ／ 年: ${yearlyCost.toFixed(0)}円`;
+      const verdict = A.monthlyCost < B.monthlyCost ? "Aの方が安い" : (A.monthlyCost > B.monthlyCost ? "Bの方が安い" : "同じ");
+
+      document.getElementById("result").innerHTML =
+        `A｜1日: ${A.dailyCost.toFixed(1)}円 ／ 月: ${A.monthlyCost.toFixed(0)}円 ／ 年: ${A.yearlyCost.toFixed(0)}円<br>` +
+        `B｜1日: ${B.dailyCost.toFixed(1)}円 ／ 月: ${B.monthlyCost.toFixed(0)}円 ／ 年: ${B.yearlyCost.toFixed(0)}円<br>` +
+        `→ ${verdict}`;
       document.getElementById("result").classList.add("show");
     }
   </script>
