@@ -1,7 +1,8 @@
+/* ベーススタイル */
 body {
-  font-family: sans-serif;
+  font-family: 'Helvetica Neue', sans-serif;
   margin: 0;
-  padding-bottom: 60px; /* ナビ分の余白 */
+  padding-bottom: 60px; /* スマホ用ナビの高さ分 */
   background: #f0f8ff;
   color: #333;
   line-height: 1.6;
@@ -9,31 +10,74 @@ body {
 
 main {
   padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 h1 {
   color: #0077cc;
   font-size: 1.8rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+.sub {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
 }
 
-li {
-  margin: 0.75rem 0;
+/* 入力フォーム */
+.form-group {
+  margin-bottom: 1.5rem;
 }
 
-a {
-  text-decoration: none;
-  color: #0077cc;
+label {
+  display: block;
   font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #444;
 }
 
-a:hover {
-  text-decoration: underline;
+input {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 320px;
+  box-sizing: border-box;
+  background: #fff;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0077cc;
+  background: #eef7ff;
+}
+
+/* ボタン */
+.compare-btn {
+  padding: 0.7rem 1.5rem;
+  background: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.compare-btn:hover {
+  background: #005fa3;
+}
+
+/* 結果表示 */
+.result {
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
 }
 
 /* ナビゲーションバー */
@@ -44,14 +88,39 @@ a:hover {
   align-items: center;
   background: #ffffff;
   border-top: 1px solid #ccc;
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
   width: 100%;
   bottom: 0;
   left: 0;
   z-index: 1000;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* PCでは上に表示 */
+.nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #0077cc;
+  font-size: 0.85rem;
+  width: 20%;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover {
+  color: #005fa3;
+}
+
+.nav i {
+  font-size: 1.4rem;
+  margin-bottom: 0.2rem;
+}
+
+.nav .label {
+  font-size: 0.7rem;
+}
+
+/* PC用ナビ切り替え */
 @media (min-width: 768px) {
   .nav {
     top: 0;
@@ -60,7 +129,24 @@ a:hover {
     border-bottom: 1px solid #ccc;
     justify-content: flex-start;
     gap: 2rem;
-    padding-left: 2rem;
+    padding: 0.6rem 2rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav a {
+    flex-direction: row;
+    gap: 0.5rem;
+    width: auto;
+    font-size: 1rem;
+  }
+
+  .nav i {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+  }
+
+  .nav .label {
+    font-size: 1rem;
   }
 
   body {
