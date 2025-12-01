@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>移動コストチェッカー - くらべる君</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>移動コストチェッカー</h1>
+    <p class="sub">交通手段ごとの「距離 × 単価」で移動費を計算します。</p>
+
+    <div class="form-group">
+      <label for="distance">距離 (km)</label>
+      <input type="number" id="distance" placeholder="例: 10" />
+    </div>
+
+    <div class="form-group">
+      <label for="unitCost">単価 (円/km)</label>
+      <input type="number" id="unitCost" placeholder="例: 20" />
+    </div>
+
+    <div class="form-group">
+      <label for="frequency">利用頻度 (回/週)</label>
+      <input type="number" id="frequency" placeholder="例: 5" />
+    </div>
+
+    <button class="compare-btn" onclick="calcTravel()">計算する</button>
+
+    <div class="result" id="result"></div>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+
+    function calcTravel() {
+      const distance = parseFloat(document.getElementById("distance").value);
+      const unitCost = parseFloat(document.getElementById("unitCost").value);
+      const frequency = parseFloat(document.getElementById("frequency").value);
+
+      if (isNaN(distance) || isNaN(unitCost) || isNaN(frequency)) {
+        document.getElementById("result").textContent = "数値を入力してください。";
+        return;
+      }
+
+      const oneWay = distance * unitCost;
+      const roundTrip = oneWay * 2;
+      const weekly = roundTrip * frequency;
+      const monthly = weekly * 4;
+      const yearly = monthly * 12;
+
+      document.getElementById("result").textContent =
+        `往復: ${roundTrip.toFixed(0)}円 ／ 週: ${weekly.toFixed(0)}円 ／ 月: ${monthly.toFixed(0)}円 ／ 年: ${yearly.toFixed(0)}円`;
+      document.getElementById("result").classList.add("show");
+    }
+  </script>
+</body>
+</html>
