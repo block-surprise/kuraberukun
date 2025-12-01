@@ -140,7 +140,14 @@
     <button class="compare-btn" onclick="compareAB()">どっちがおトク？</button>
     <p id="result" class="result"></p>
   </main>
-
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
   <script>
     function compareAB() {
       const priceA = parseFloat(document.getElementById('priceA').value);
