@@ -162,18 +162,18 @@ input:focus {
 }
 
 .feature-box {
+  display: inline-block;
   background: #ffffff;
   border: 1px solid #ccc;
   border-radius: 1rem;
   padding: 1rem;
+  margin: 0.5rem;
   text-align: center;
   text-decoration: none;
   color: #0077cc;
   font-size: 0.85rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 100%;
-  max-width: 120px;
+  width: 100px;
 }
 
 .feature-box:hover {
