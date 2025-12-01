@@ -3,72 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>割安チェッカー - くらべる君</title>
+  <title>A/B 比較チェッカー - くらべる君</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding-bottom: 60px;
+      background: #f0f8ff;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #0077cc;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .sub {
+      color: #666;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      color: #444;
+    }
+
+    input {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 0.6rem;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      background: #fff;
+    }
+
+    .compare-btn {
+      padding: 0.7rem 1.5rem;
+      background: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 0.6rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .compare-btn:hover {
+      background: #005fa3;
+    }
+
+    .compare-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .compare-side {
+      flex: 1 1 200px;
+      min-width: 0;
+    }
+
+    .compare-side h3 {
+      margin-top: 0;
+      color: #0077cc;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .result {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #333;
+      margin-top: 1.5rem;
+    }
+
+    .result.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
   <main>
-    <h1>💰 割安チェッカー</h1>
-    <p class="sub">2つの商品を比べて、どちらが割安か、そっと確かめてみよう。</p>
+    <h1>A/B 比較チェッカー</h1>
+    <p class="sub">2つの商品の価格と量をくらべて、どちらがおトクかを計算します。</p>
 
-    <div class="form-group">
-      <label for="price1">価格1</label>
-      <input id="price1" type="number" placeholder="例：198" />
+    <div class="compare-box">
+      <div class="compare-side">
+        <h3>A</h3>
+        <div class="form-group">
+          <label for="priceA">価格</label>
+          <input id="priceA" type="number" placeholder="例：198" />
+          <label for="amountA">量</label>
+          <input id="amountA" type="number" placeholder="例：500" />
+        </div>
+      </div>
+
+      <div class="compare-side">
+        <h3>B</h3>
+        <div class="form-group">
+          <label for="priceB">価格</label>
+          <input id="priceB" type="number" placeholder="例：158" />
+          <label for="amountB">量</label>
+          <input id="amountB" type="number" placeholder="例：400" />
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="amount1">量1</label>
-      <input id="amount1" type="number" placeholder="例：500（g / ml / 個）" />
-    </div>
-
-    <div class="form-group">
-      <label for="price2">価格2</label>
-      <input id="price2" type="number" placeholder="例：158" />
-    </div>
-
-    <div class="form-group">
-      <label for="amount2">量2</label>
-      <input id="amount2" type="number" placeholder="例：400" />
-    </div>
-
-    <button class="compare-btn" onclick="compare()">どっちが安い？</button>
-
+    <button class="compare-btn" onclick="compareAB()">どっちがおトク？</button>
     <p id="result" class="result"></p>
   </main>
 
-  <div id="nav-placeholder"></div>
   <script>
-    fetch("nav.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("nav-placeholder").innerHTML = html;
-      });
-
-    function compare() {
-      const p1 = parseFloat(document.getElementById('price1').value);
-      const a1 = parseFloat(document.getElementById('amount1').value);
-      const p2 = parseFloat(document.getElementById('price2').value);
-      const a2 = parseFloat(document.getElementById('amount2').value);
+    function compareAB() {
+      const priceA = parseFloat(document.getElementById('priceA').value);
+      const amountA = parseFloat(document.getElementById('amountA').value);
+      const priceB = parseFloat(document.getElementById('priceB').value);
+      const amountB = parseFloat(document.getElementById('amountB').value);
       const result = document.getElementById('result');
 
-      if (p1 && a1 && p2 && a2) {
-        const unit1 = p1 / a1;
-        const unit2 = p2 / a2;
+      if (priceA && amountA && priceB && amountB) {
+        const unitA = priceA / amountA;
+        const unitB = priceB / amountB;
 
-        if (unit1 < unit2) {
-          result.textContent = '✅ 商品1の方が割安です。';
-        } else if (unit1 > unit2) {
-          result.textContent = '✅ 商品2の方が割安です。';
+        let message = '';
+        if (unitA < unitB) {
+          const percent = ((unitB - unitA) / unitB) * 100;
+          message = `✅ Aの方が約 ${percent.toFixed(1)}% おトクです。`;
+        } else if (unitA > unitB) {
+          const percent = ((unitA - unitB) / unitA) * 100;
+          message = `✅ Bの方が約 ${percent.toFixed(1)}% おトクです。`;
         } else {
-          result.textContent = '🤝 どちらも同じ単価です。';
+          message = '🤝 どちらも同じ単価です。';
         }
+
+        result.textContent = message;
+        result.classList.remove('show');
+        void result.offsetWidth;
+        result.classList.add('show');
       } else {
         result.textContent = '⚠️ すべての項目を入力してください。';
+        result.classList.remove('show');
+        void result.offsetWidth;
+        result.classList.add('show');
       }
     }
   </script>
 </body>
 </html>
-
-
