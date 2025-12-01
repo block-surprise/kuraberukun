@@ -140,7 +140,14 @@
     <button class="compare-btn" onclick="compareMonthly()">どっちがおトク？</button>
     <p id="monthlyResult" class="result"></p>
   </main>
-
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
   <script>
     function compareMonthly() {
       const priceA = parseFloat(document.getElementById('priceA').value);
