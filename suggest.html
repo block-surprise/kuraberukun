@@ -5,27 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>新しいツールを提案する - くらべる君</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .suggest-form {
+      max-width: 600px;
+      margin: 2em auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5em;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      color: #333;
+    }
+
+    .form-group textarea,
+    .form-group input[type="email"] {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: vertical;
+    }
+
+    .form-group textarea {
+      text-align: left;
+    }
+
+    .compare-btn {
+      display: block;
+      margin: 0 auto;
+      padding: 0.6em 1.2em;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      background-color: #336699;
+      color: white;
+      cursor: pointer;
+    }
+
+    .compare-btn:hover {
+      background-color: #1a4d80;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 1em;
+    }
+  </style>
 </head>
 <body>
   <main>
     <h1>新しいツールを提案する</h1>
     <p class="sub">「こんな比較があったらいいな」を、そっと教えてください。</p>
 
-    <form action="https://formspree.io/f/your-form-id" method="POST" class="suggest-form">
+    <form id="suggest-form" class="suggest-form">
       <div class="form-group">
         <label for="idea">アイデアの内容</label>
-        <textarea id="idea" name="idea" rows="5" placeholder="例：通勤時間と家賃のバランスを比較するツールがほしい"></textarea>
+        <textarea id="idea" name="idea" rows="5" required></textarea>
       </div>
 
       <div class="form-group">
         <label for="email">メールアドレス（任意）</label>
-        <input type="email" id="email" name="email" placeholder="返信が必要な場合のみ" />
+        <input type="email" id="email" name="email" />
       </div>
 
       <button type="submit" class="compare-btn">提案を送る</button>
     </form>
 
-    <p class="note">※ 送っていただいた内容は、サイト改善の参考にさせていただきます。</p>
+    <div id="submit-message" class="note"></div>
   </main>
 
   <div id="nav-placeholder"></div>
@@ -35,6 +90,51 @@
       .then(html => {
         document.getElementById("nav-placeholder").innerHTML = html;
       });
+  </script>
+
+  <!-- Firebase初期化 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyByrjT37I-4D9FsPAw2RlxbdlmHdScmwVQ",
+      authDomain: "kuraberukun-e638b.firebaseapp.com",
+      projectId: "kuraberukun-e638b",
+      storageBucket: "kuraberukun-e638b.firebasestorage.app",
+      messagingSenderId: "796604463328",
+      appId: "1:796604463328:web:c92905d2bf64b0cacb3885",
+      measurementId: "G-WZLS5K3J13"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+
+    // フォーム送信処理
+    document.getElementById("suggest-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const idea = document.getElementById("idea").value.trim();
+      const email = document.getElementById("email").value.trim();
+
+      if (!idea) return;
+
+      try {
+        await addDoc(collection(db, "suggestions"), {
+          idea,
+          email,
+          timestamp: new Date()
+        });
+
+        document.getElementById("submit-message").textContent = "提案を受け取りました。ありがとう！";
+        document.getElementById("suggest-form").reset();
+      } catch (error) {
+        document.getElementById("submit-message").textContent = "送信に失敗しました。もう一度お試しください。";
+        console.error("Error adding document: ", error);
+      }
+    });
   </script>
 </body>
 </html>
