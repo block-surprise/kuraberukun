@@ -9,31 +9,50 @@
 <body>
   <main>
     <h1>電気代チェッカー</h1>
-    <p class="sub">家電や照明の「消費電力 × 使用時間」から、月・年の電気代を計算します。</p>
+    <p class="sub">AとBの家電を比較して、どちらが安いかを計算します。</p>
 
-    <!-- 入力フォーム -->
-    <div class="form-group">
-      <label for="watt">消費電力 (W)</label>
-      <input type="number" id="watt" placeholder="例: 100" />
+    <!-- A/B比較ボックス -->
+    <div class="compare-box">
+      <!-- A側 -->
+      <div class="compare-side">
+        <h3>A</h3>
+        <div class="form-group">
+          <label for="wattA">消費電力 (W)</label>
+          <input type="number" id="wattA" />
+        </div>
+        <div class="form-group">
+          <label for="hoursA">使用時間 (時間/日)</label>
+          <input type="number" id="hoursA" />
+        </div>
+        <div class="form-group">
+          <label for="unitPriceA">単価 (円/kWh)</label>
+          <input type="number" id="unitPriceA" value="31" />
+        </div>
+      </div>
+
+      <!-- B側 -->
+      <div class="compare-side">
+        <h3>B</h3>
+        <div class="form-group">
+          <label for="wattB">消費電力 (W)</label>
+          <input type="number" id="wattB" />
+        </div>
+        <div class="form-group">
+          <label for="hoursB">使用時間 (時間/日)</label>
+          <input type="number" id="hoursB" />
+        </div>
+        <div class="form-group">
+          <label for="unitPriceB">単価 (円/kWh)</label>
+          <input type="number" id="unitPriceB" value="31" />
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="hours">使用時間 (時間/日)</label>
-      <input type="number" id="hours" placeholder="例: 5" />
-    </div>
-
-    <div class="form-group">
-      <label for="unitPrice">電気料金単価 (円/kWh)</label>
-      <input type="number" id="unitPrice" value="31" />
-    </div>
-
-    <button class="compare-btn" onclick="calcElectric()">計算する</button>
-
-    <!-- 結果表示 -->
+    <button class="compare-btn" onclick="calcCompare()">比較する</button>
     <div class="result" id="result"></div>
   </main>
 
-  <!-- ナビゲーションバーを読み込み -->
+  <!-- 共通ナビ -->
   <div id="nav-placeholder"></div>
   <script>
     fetch("nav.html")
@@ -42,17 +61,38 @@
         document.getElementById("nav-placeholder").innerHTML = html;
       });
 
-    function calcElectric() {
-      const watt = parseFloat(document.getElementById("watt").value);
-      const hours = parseFloat(document.getElementById("hours").value);
-      const unitPrice = parseFloat(document.getElementById("unitPrice").value);
+    function calcCompare() {
+      // A側
+      const wattA = parseFloat(document.getElementById("wattA").value);
+      const hoursA = parseFloat(document.getElementById("hoursA").value);
+      const unitPriceA = parseFloat(document.getElementById("unitPriceA").value);
+      const dailyCostA = (wattA / 1000) * hoursA * unitPriceA;
 
-      if (isNaN(watt) || isNaN(hours) || isNaN(unitPrice)) {
+      // B側
+      const wattB = parseFloat(document.getElementById("wattB").value);
+      const hoursB = parseFloat(document.getElementById("hoursB").value);
+      const unitPriceB = parseFloat(document.getElementById("unitPriceB").value);
+      const dailyCostB = (wattB / 1000) * hoursB * unitPriceB;
+
+      if (isNaN(dailyCostA) || isNaN(dailyCostB)) {
         document.getElementById("result").textContent = "数値を入力してください。";
         return;
       }
 
-      const dailyKWh = (watt / 1000) * hours;
-      const dailyCost = dailyKWh * unitPrice;
-      const monthlyCost = dailyCost * 30;
-      const yearlyCost = monthly
+      // 月・年も計算
+      const monthlyA = dailyCostA * 30;
+      const yearlyA = monthlyA * 12;
+      const monthlyB = dailyCostB * 30;
+      const yearlyB = monthlyB * 12;
+
+      // 比較結果
+      let cheaper = dailyCostA < dailyCostB ? "Aの方が安い" : "Bの方が安い";
+      document.getElementById("result").textContent =
+        `A: 1日 ${dailyCostA.toFixed(1)}円 ／ 月 ${monthlyA.toFixed(0)}円 ／ 年 ${yearlyA.toFixed(0)}円
+         ｜ B: 1日 ${dailyCostB.toFixed(1)}円 ／ 月 ${monthlyB.toFixed(0)}円 ／ 年 ${yearlyB.toFixed(0)}円
+         → ${cheaper}`;
+      document.getElementById("result").classList.add("show");
+    }
+  </script>
+</body>
+</html>
