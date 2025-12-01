@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>割安チェッカー - くらべる君</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>💰 割安チェッカー</h1>
+  <p>2つの商品を比べて、どちらが割安かチェックしよう！</p>
+
+  <label>価格1: <input id="price1" type="number" /> 円</label><br />
+  <label>量1: <input id="amount1" type="number" /> g / ml / 個</label><br /><br />
+
+  <label>価格2: <input id="price2" type="number" /> 円</label><br />
+  <label>量2: <input id="amount2" type="number" /> g / ml / 個</label><br /><br />
+
+  <button onclick="compare()">どっちが安い？</button>
+
+  <p id="result"></p>
+
+  <p><a href="index.html">← ホームに戻る</a></p>
+
+  <script>
+    function compare() {
+      const p1 = parseFloat(document.getElementById('price1').value);
+      const a1 = parseFloat(document.getElementById('amount1').value);
+      const p2 = parseFloat(document.getElementById('price2').value);
+      const a2 = parseFloat(document.getElementById('amount2').value);
+
+      const result = document.getElementById('result');
+
+      if (p1 && a1 && p2 && a2) {
+        const unit1 = p1 / a1;
+        const unit2 = p2 / a2;
+
+        if (unit1 < unit2) {
+          result.textContent = '✅ 商品1の方が割安だよ！';
+        } else if (unit1 > unit2) {
+          result.textContent = '✅ 商品2の方が割安だよ！';
+        } else {
+          result.textContent = '🤝 どちらも同じ単価だよ！';
+        }
+      } else {
+        result.textContent = '⚠️ すべての項目を入力してね！';
+      }
+    }
+  </script>
+</body>
+</html>
