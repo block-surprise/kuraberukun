@@ -9,28 +9,50 @@
 <body>
   <main>
     <h1>移動コストチェッカー</h1>
-    <p class="sub">交通手段ごとの「距離 × 単価」で移動費を計算します。</p>
+    <p class="sub">AとBの移動手段を並べて、往復・週・月・年のコストを比較します。</p>
 
-    <div class="form-group">
-      <label for="distance">距離 (km)</label>
-      <input type="number" id="distance" placeholder="例: 10" />
+    <!-- A/B比較ボックス -->
+    <div class="compare-box">
+      <!-- A側 -->
+      <div class="compare-side">
+        <h3>A</h3>
+        <div class="form-group">
+          <label for="distanceA">距離 (km)</label>
+          <input type="number" id="distanceA" placeholder="例: 10" />
+        </div>
+        <div class="form-group">
+          <label for="unitCostA">単価 (円/km)</label>
+          <input type="number" id="unitCostA" placeholder="例: 20" />
+        </div>
+        <div class="form-group">
+          <label for="frequencyA">利用頻度 (回/週)</label>
+          <input type="number" id="frequencyA" placeholder="例: 5" />
+        </div>
+      </div>
+
+      <!-- B側 -->
+      <div class="compare-side">
+        <h3>B</h3>
+        <div class="form-group">
+          <label for="distanceB">距離 (km)</label>
+          <input type="number" id="distanceB" placeholder="例: 12" />
+        </div>
+        <div class="form-group">
+          <label for="unitCostB">単価 (円/km)</label>
+          <input type="number" id="unitCostB" placeholder="例: 18" />
+        </div>
+        <div class="form-group">
+          <label for="frequencyB">利用頻度 (回/週)</label>
+          <input type="number" id="frequencyB" placeholder="例: 5" />
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="unitCost">単価 (円/km)</label>
-      <input type="number" id="unitCost" placeholder="例: 20" />
-    </div>
-
-    <div class="form-group">
-      <label for="frequency">利用頻度 (回/週)</label>
-      <input type="number" id="frequency" placeholder="例: 5" />
-    </div>
-
-    <button class="compare-btn" onclick="calcTravel()">計算する</button>
-
+    <button class="compare-btn" onclick="calcTravelCompare()">比較する</button>
     <div class="result" id="result"></div>
   </main>
 
+  <!-- 共通ナビ -->
   <div id="nav-placeholder"></div>
   <script>
     fetch("nav.html")
@@ -39,24 +61,47 @@
         document.getElementById("nav-placeholder").innerHTML = html;
       });
 
-    function calcTravel() {
-      const distance = parseFloat(document.getElementById("distance").value);
-      const unitCost = parseFloat(document.getElementById("unitCost").value);
-      const frequency = parseFloat(document.getElementById("frequency").value);
+    function calcSide(distance, unitCost, frequency) {
+      const oneWay = distance * unitCost;      // 片道
+      const roundTrip = oneWay * 2;            // 往復
+      const weekly = roundTrip * frequency;    // 週
+      const monthly = weekly * 4;              // 月（4週換算）
+      const yearly = monthly * 12;             // 年
+      return { oneWay, roundTrip, weekly, monthly, yearly };
+    }
 
-      if (isNaN(distance) || isNaN(unitCost) || isNaN(frequency)) {
+    function format(cost) {
+      return Math.max(0, cost).toFixed(0);
+    }
+
+    function calcTravelCompare() {
+      // A側入力
+      const distanceA = parseFloat(document.getElementById("distanceA").value);
+      const unitCostA = parseFloat(document.getElementById("unitCostA").value);
+      const frequencyA = parseFloat(document.getElementById("frequencyA").value);
+
+      // B側入力
+      const distanceB = parseFloat(document.getElementById("distanceB").value);
+      const unitCostB = parseFloat(document.getElementById("unitCostB").value);
+      const frequencyB = parseFloat(document.getElementById("frequencyB").value);
+
+      // 入力チェック
+      if ([distanceA, unitCostA, frequencyA, distanceB, unitCostB, frequencyB].some(v => isNaN(v))) {
         document.getElementById("result").textContent = "数値を入力してください。";
         return;
       }
 
-      const oneWay = distance * unitCost;
-      const roundTrip = oneWay * 2;
-      const weekly = roundTrip * frequency;
-      const monthly = weekly * 4;
-      const yearly = monthly * 12;
+      // 計算
+      const A = calcSide(distanceA, unitCostA, frequencyA);
+      const B = calcSide(distanceB, unitCostB, frequencyB);
 
-      document.getElementById("result").textContent =
-        `往復: ${roundTrip.toFixed(0)}円 ／ 週: ${weekly.toFixed(0)}円 ／ 月: ${monthly.toFixed(0)}円 ／ 年: ${yearly.toFixed(0)}円`;
+      // 比較（月コストで判定）
+      const verdict = A.monthly < B.monthly ? "Aの方が安い" : (A.monthly > B.monthly ? "Bの方が安い" : "同じ");
+
+      document.getElementById("result").innerHTML =
+        `A｜往復: ${format(A.roundTrip)}円 ／ 週: ${format(A.weekly)}円 ／ 月: ${format(A.monthly)}円 ／ 年: ${format(A.yearly)}円<br>` +
+        `B｜往復: ${format(B.roundTrip)}円 ／ 週: ${format(B.weekly)}円 ／ 月: ${format(B.monthly)}円 ／ 年: ${format(B.yearly)}円<br>` +
+        `→ ${verdict}`;
       document.getElementById("result").classList.add("show");
     }
   </script>
