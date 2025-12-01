@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新しいツールを提案する - くらべる君</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>新しいツールを提案する</h1>
+    <p class="sub">「こんな比較があったらいいな」を、そっと教えてください。</p>
+
+    <form action="https://formspree.io/f/your-form-id" method="POST" class="suggest-form">
+      <div class="form-group">
+        <label for="idea">アイデアの内容</label>
+        <textarea id="idea" name="idea" rows="5" placeholder="例：通勤時間と家賃のバランスを比較するツールがほしい"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="email">メールアドレス（任意）</label>
+        <input type="email" id="email" name="email" placeholder="返信が必要な場合のみ" />
+      </div>
+
+      <button type="submit" class="compare-btn">提案を送る</button>
+    </form>
+
+    <p class="note">※ 送っていただいた内容は、サイト改善の参考にさせていただきます。</p>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
+</body>
+</html>
