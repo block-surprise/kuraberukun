@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>その他のツール - くらべる君</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<main>
+  <h1>⋯ その他のツール</h1>
+  <p class="sub">くらべる君のすべての機能を、小さな箱にそっと詰めて。</p>
+
+  <div class="feature-grid">
+    <a href="price.html" class="feature-box">
+      <i class="fas fa-balance-scale"></i>
+      <span>割安チェッカー</span>
+    </a>
+    <a href="bulk.html" class="feature-box">
+      <i class="fas fa-boxes-stacked"></i>
+      <span>まとめ買い</span>
+    </a>
+    <a href="monthly.html" class="feature-box">
+      <i class="fas fa-calendar-alt"></i>
+      <span>月額コスト</span>
+    </a>
+    <a href="#" class="feature-box">
+      <i class="fas fa-ruler-combined"></i>
+      <span>面積あたり</span>
+    </a>
+    <a href="#" class="feature-box">
+      <i class="fas fa-vial"></i>
+      <span>希釈計算</span>
+    </a>
+    <a href="#" class="feature-box">
+      <i class="fas fa-chart-bar"></i>
+      <span>グラフ比較</span>
+    </a>
+  </div>
+
+  <!-- ここに“下の何か”をあとで追加予定 -->
+</main>
+
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
+</body>
+</html>
