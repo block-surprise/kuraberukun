@@ -7,20 +7,28 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>💰 割安チェッカー</h1>
-  <p>2つの商品を比べて、どちらが割安かチェックしよう！</p>
+  <main>
+    <h1>💰 割安チェッカー</h1>
+    <p>2つの商品を比べて、どちらが割安かチェックしよう！</p>
 
-  <label>価格1: <input id="price1" type="number" /> 円</label><br />
-  <label>量1: <input id="amount1" type="number" /> g / ml / 個</label><br /><br />
+    <label>価格1: <input id="price1" type="number" /> 円</label><br />
+    <label>量1: <input id="amount1" type="number" /> g / ml / 個</label><br /><br />
 
-  <label>価格2: <input id="price2" type="number" /> 円</label><br />
-  <label>量2: <input id="amount2" type="number" /> g / ml / 個</label><br /><br />
+    <label>価格2: <input id="price2" type="number" /> 円</label><br />
+    <label>量2: <input id="amount2" type="number" /> g / ml / 個</label><br /><br />
 
-  <button onclick="compare()">どっちが安い？</button>
+    <button onclick="compare()">どっちが安い？</button>
 
-  <p id="result"></p>
+    <p id="result"></p>
+  </main>
 
-  <p><a href="index.html">← ホームに戻る</a></p>
+  <nav class="nav">
+    <a href="index.html">🏠 ホーム</a>
+    <a href="price.html">💰 割安</a>
+    <a href="bulk.html">📦 まとめ</a>
+    <a href="monthly.html">📅 月額</a>
+    <a href="more.html">⋯ その他</a>
+  </nav>
 
   <script>
     function compare() {
@@ -49,3 +57,4 @@
   </script>
 </body>
 </html>
+
