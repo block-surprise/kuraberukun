@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>月額チェッカー - くらべる君</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <main>
+    <h1>📅 月額チェッカー</h1>
+    <p class="sub">年間・半年・3ヶ月などの料金を、1ヶ月あたりに換算してみよう。</p>
+
+    <div class="form-group">
+      <label for="totalPrice">合計金額</label>
+      <input id="totalPrice" type="number" placeholder="例：12000" />
+    </div>
+
+    <div class="form-group">
+      <label for="months">期間（月）</label>
+      <input id="months" type="number" placeholder="例：12" />
+    </div>
+
+    <button class="compare-btn" onclick="calcMonthly()">1ヶ月あたりを計算</button>
+
+    <p id="monthlyResult" class="result"></p>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+
+    function calcMonthly() {
+      const total = parseFloat(document.getElementById('totalPrice').value);
+      const months = parseFloat(document.getElementById('months').value);
+      const result = document.getElementById('monthlyResult');
+
+      if (total && months && months > 0) {
+        const monthly = total / months;
+        result.textContent = `💡 1ヶ月あたり：約 ${monthly.toFixed(2)} 円です。`;
+      } else {
+        result.textContent = '⚠️ 金額と月数を正しく入力してください。';
+      }
+    }
+  </script>
+</body>
+</html>
