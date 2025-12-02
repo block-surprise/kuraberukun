@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>車通勤と電車通勤、年間でどれだけ差が出る？ - くらべる君</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+　<link rel="icon" type="image/png" sizes="48x48" href="/favicon.png"> 
+　<link rel="apple-touch-icon" href="/fa.png"> 
+　<link rel="manifest" href="/fa.png">
+  <meta name="description" content="車通勤と電車通勤、年間でどれだけ差が出る？ガソリン・駐車場・定期代などを数字で整理し、暮らしの視点も含めて考えます。">
+</head>
+<body>
+  <main>
+    <h1><i class="fas fa-route"></i> 車通勤と電車通勤、年間でどれだけ差が出る？</h1>
+    <p class="sub">数字で整理して、暮らしで選ぶ。コストと快適さのバランスを見つめ直そう。</p>
+
+    <section>
+      <h2>モデルケースでざっくり比較</h2>
+      <p>
+        関東近郊での通勤を例に、月20日出社・片道15km（車）／片道30分（電車）でざっくり試算します。<br>
+        「あくまで目安」なので、あなたの条件で <a href="/travel.html"><i class="fas fa-calculator"></i> 移動コストチェッカー</a> で置き換えてみてください。
+      </p>
+    </section>
+
+    <section>
+      <h2>車通勤の主なコスト</h2>
+      <ul>
+        <li><strong>ガソリン代:</strong> 片道15km×往復×20日＝月約600km。燃費15km/Lなら月約40L。単価が仮に160円/Lなら月約6,400円、年間約76,800円。</li>
+        <li><strong>駐車場代:</strong> 月8,000円なら年間96,000円。</li>
+        <li><strong>保険・税金:</strong> 年間の自動車保険・自動車税の合計を仮に80,000円。</li>
+        <li><strong>車検・メンテ:</strong> タイヤ・オイル含め年平均60,000円と仮定。</li>
+        <li><strong>車両の減価・劣化:</strong> 年間100,000円相当とざっくり見積り。</li>
+      </ul>
+      <p>
+        以上を合計すると、年間約412,800円（目安）。距離・燃費・単価・駐車場で大きく変動します。
+      </p>
+    </section>
+
+    <section>
+      <h2>電車通勤の主なコスト</h2>
+      <ul>
+        <li><strong>定期代:</strong> 区間によりますが、月10,000〜20,000円の範囲が一般的。ここでは月15,000円と仮定して年間180,000円。</li>
+        <li><strong>臨時の交通費:</strong> 定期外の乗車や振替などの予備費を年20,000円と仮定。</li>
+      </ul>
+      <p>
+        合計は年間約200,000円（目安）。区間・会社で上下します。
+      </p>
+    </section>
+
+    <section>
+      <h2>数字の差と、見えない価値</h2>
+      <p>
+        このモデルでは、年間コストは「車：約41万円」対「電車：約20万円」。<br>
+        ただし、車はドア to ドアの快適さや荷物の自由度、電車は読書・学び時間の確保や渋滞回避など、数字にしづらい価値があります。
+      </p>
+      <ul>
+        <li><strong>時間の安定性:</strong> 電車はダイヤが安定、車は渋滞でブレやすい。</li>
+        <li><strong>ストレス:</strong> 運転の疲労 vs. 満員の疲労。どちらが自分に合うか。</li>
+        <li><strong>柔軟性:</strong> 直行・直帰、雨天、荷物の量など、働き方次第で評価が変わる。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>結論：自分の条件で数字を整え、暮らしで選ぶ</h2>
+      <p>
+        距離・燃費・駐車場・定期区間で数字は大きく動きます。まずは自分の条件で試算して、次に「快適さ」「安定性」「疲労感」を重ねて評価してみましょう。
+      </p>
+      <p>
+        くらべる君の <a href="/travel.html"><i class="fas fa-calculator"></i> 移動コストチェッカー</a> で、あなたの通勤条件に合わせて年間コストを見える化。<br>
+        数字で落ち着き、暮らしで納得する選び方を。
+      </p>
+    </section>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("/nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
+</body>
+</html>
