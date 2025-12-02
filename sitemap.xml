@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- トップページ -->
+  <url>
+    <loc>https://kuraberukun.f5.si/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- メインページ -->
+  <url><loc>https://kuraberukun.f5.si/guide.html</loc></url>
+  <url><loc>https://kuraberukun.f5.si/cases.html</loc></url>
+  <url><loc>https://kuraberukun.f5.si/suggest.html</loc></url>
+  <url><loc>https://kuraberukun.f5.si/privacy.html</loc></url>
+
+  <!-- 各ツール -->
+  <url><loc>https://kuraberukun.f5.si/price.html</loc></url>
+  <url><loc>https://kuraberukun.f5.si/bulk.html</loc></url>
+  <url><loc>https://kuraberukun.f5.si/monthly.html</loc></url>
+  <url><loc>https://kuraberukun.f5.si/electric.html</loc></url>
+  <url><loc>https://kuraberukun.f5.si/travel.html</loc></url>
+  <url><loc>https://kuraberukun.f5.si/water.html</loc></url>
+
+
+</urlset>
