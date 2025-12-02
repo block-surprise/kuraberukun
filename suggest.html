@@ -3,137 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>新しいツールを提案する - くらべる君</title>
+  <title>新しいツール／お問い合わせ - くらべる君</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    .suggest-form {
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .tab-buttons button {
+      padding: 0.6em 1.2em;
+      border: none;
+      border-radius: 6px;
+      background: #0077cc;
+      color: #fff;
+      cursor: pointer;
+    }
+    .tab-buttons button.active {
+      background: #005fa3;
+    }
+    .tab-content {
+      display: none;
       max-width: 600px;
-      margin: 2em auto;
+      margin: 0 auto;
     }
-
+    .tab-content.active {
+      display: block;
+    }
     .form-group {
-      margin-bottom: 1.5em;
+      margin-bottom: 1.2em;
     }
-
     .form-group label {
       display: block;
       font-weight: bold;
-      margin-bottom: 0.5em;
-      color: #333;
+      margin-bottom: 0.4em;
     }
-
-    .form-group textarea,
-    .form-group input[type="email"] {
+    .form-group input,
+    .form-group textarea {
       width: 100%;
       padding: 0.8em;
-      font-size: 1em;
       border: 1px solid #ccc;
       border-radius: 6px;
-      resize: vertical;
     }
-
-    .form-group textarea {
-      text-align: left;
-    }
-
     .compare-btn {
-      display: block;
-      margin: 0 auto;
       padding: 0.6em 1.2em;
-      font-size: 1em;
       border: none;
       border-radius: 6px;
-      background-color: #336699;
-      color: white;
+      background: #0077cc;
+      color: #fff;
       cursor: pointer;
     }
-
     .compare-btn:hover {
-      background-color: #1a4d80;
+      background: #005fa3;
     }
-
     .note {
       text-align: center;
-      font-size: 0.9em;
-      color: #666;
       margin-top: 1em;
+      color: #666;
     }
   </style>
 </head>
 <body>
   <main>
-    <h1>新しいツールを提案する</h1>
-    <p class="sub">「こんな比較があったらいいな」を、そっと教えてください。</p>
+    <h1><i class="fas fa-lightbulb"></i> 新しいツール／お問い合わせ</h1>
+    <p class="sub">アイデアの提案とお問い合わせを、このページから送信できます。</p>
 
-    <form id="suggest-form" class="suggest-form">
-      <div class="form-group">
-        <label for="idea">アイデアの内容</label>
-        <textarea id="idea" name="idea" rows="5" required></textarea>
-      </div>
+    <!-- 切り替えボタン -->
+    <div class="tab-buttons">
+      <button id="btn-suggest" class="active">新しいツールを提案する</button>
+      <button id="btn-contact">お問い合わせ</button>
+    </div>
 
-      <div class="form-group">
-        <label for="email">メールアドレス（任意）</label>
-        <input type="email" id="email" name="email" />
-      </div>
+    <!-- 提案フォーム -->
+    <div id="suggest-tab" class="tab-content active">
+      <form id="suggest-form">
+        <div class="form-group">
+          <label for="idea">アイデアの内容</label>
+          <textarea id="idea" name="idea" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="email">メールアドレス（任意）</label>
+          <input type="email" id="email" name="email" />
+        </div>
+        <button type="submit" class="compare-btn">提案を送る</button>
+      </form>
+      <div id="suggest-message" class="note"></div>
+    </div>
 
-      <button type="submit" class="compare-btn">提案を送る</button>
-    </form>
-
-    <div id="submit-message" class="note"></div>
+    <!-- お問い合わせフォーム -->
+    <div id="contact-tab" class="tab-content">
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="name">お名前（任意）</label>
+          <input type="text" id="name" name="name" />
+        </div>
+        <div class="form-group">
+          <label for="contact-email">メールアドレス（必須）</label>
+          <input type="email" id="contact-email" name="contact-email" required />
+        </div>
+        <div class="form-group">
+          <label for="message">お問い合わせ内容</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="compare-btn">送信する</button>
+      </form>
+      <div id="contact-message" class="note"></div>
+    </div>
   </main>
 
-  <div id="nav-placeholder"></div>
   <script>
-    fetch("nav.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("nav-placeholder").innerHTML = html;
-      });
-  </script>
+    // タブ切り替え
+    const btnSuggest = document.getElementById("btn-suggest");
+    const btnContact = document.getElementById("btn-contact");
+    const suggestTab = document.getElementById("suggest-tab");
+    const contactTab = document.getElementById("contact-tab");
 
-  <!-- Firebase初期化 -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+    btnSuggest.addEventListener("click", () => {
+      btnSuggest.classList.add("active");
+      btnContact.classList.remove("active");
+      suggestTab.classList.add("active");
+      contactTab.classList.remove("active");
+    });
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyByrjT37I-4D9FsPAw2RlxbdlmHdScmwVQ",
-      authDomain: "kuraberukun-e638b.firebaseapp.com",
-      projectId: "kuraberukun-e638b",
-      storageBucket: "kuraberukun-e638b.firebasestorage.app",
-      messagingSenderId: "796604463328",
-      appId: "1:796604463328:web:c92905d2bf64b0cacb3885",
-      measurementId: "G-WZLS5K3J13"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const db = getFirestore(app);
-
-    // フォーム送信処理
-    document.getElementById("suggest-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const idea = document.getElementById("idea").value.trim();
-      const email = document.getElementById("email").value.trim();
-
-      if (!idea) return;
-
-      try {
-        await addDoc(collection(db, "suggestions"), {
-          idea,
-          email,
-          timestamp: new Date()
-        });
-
-        document.getElementById("submit-message").textContent = "提案を受け取りました。ありがとう！";
-        document.getElementById("suggest-form").reset();
-      } catch (error) {
-        document.getElementById("submit-message").textContent = "送信に失敗しました。もう一度お試しください。";
-        console.error("Error adding document: ", error);
-      }
+    btnContact.addEventListener("click", () => {
+      btnContact.classList.add("active");
+      btnSuggest.classList.remove("active");
+      contactTab.classList.add("active");
+      suggestTab.classList.remove("active");
     });
   </script>
 </body>
