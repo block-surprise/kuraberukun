@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>シャワー派とお風呂派、水道代で見るリラックスの価値 - くらべる君</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+　<link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+　<link rel="apple-touch-icon" href="/fa.png">
+　<link rel="manifest" href="/fa.png">
+  <meta name="description" content="シャワーとお風呂、どちらが水道代的におトク？数字とリラックスのバランスを考えます。">
+</head>
+<body>
+  <main>
+    <h1><i class="fas fa-bath"></i> シャワー派とお風呂派、水道代で見るリラックスの価値</h1>
+    <p class="sub">寒い季節、湯船に浸かる幸せ。でも水道代は？数字と気持ちのバランスを考えてみよう。</p>
+
+    <section>
+      <h2>1回の使用量を比べてみよう</h2>
+      <p>
+        シャワーは1分あたり約12Lの水を使うと言われています。<br>
+        10分間のシャワーで約120L。<br>
+        一方、お風呂は1回で約200L前後のお湯をためることが多いです。
+      </p>
+      <p>
+        水道代だけで見ると、シャワーの方が少なく済むことが多いですが、<br>
+        長時間浴びると逆転することもあります。
+      </p>
+    </section>
+
+    <section>
+      <h2>ガス代も忘れずに</h2>
+      <p>
+        お湯を沸かすにはガス代もかかります。<br>
+        シャワーは使う時間に比例してガスを消費し、お風呂は一気に沸かす分、1回あたりのコストが大きくなります。
+      </p>
+      <p>
+        家族で入るならお風呂の方が効率的。<br>
+        一人暮らしならシャワーの方がコスパがいいかもしれません。
+      </p>
+    </section>
+
+    <section>
+      <h2>リラックスの価値は数字だけじゃ測れない</h2>
+      <p>
+        湯船に浸かると、体が芯から温まり、疲れも取れやすくなります。<br>
+        ストレス解消や睡眠の質向上にもつながると言われています。
+      </p>
+      <p>
+        つまり、お風呂は「水道代＋ガス代」以上の価値を持っているとも言えるんです。
+      </p>
+    </section>
+
+    <section>
+      <h2>数字で見て、気持ちで選ぶ</h2>
+      <p>
+        くらべる君の <a href="/water.html"><i class="fas fa-calculator"></i> 水道代チェッカー</a> を使えば、<br>
+        シャワーとお風呂のコストを簡単に比較できます。
+      </p>
+      <p>
+        数字で知って、気持ちで選ぶ。<br>
+        そんなバランスが、心地よい暮らしにつながるかもしれません。
+      </p>
+    </section>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("/nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
+</body>
+</html>
