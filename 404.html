@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ページが見つかりません - くらべる君</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta name="description" content="指定されたページが見つかりませんでした。くらべる君のホームやガイド、事例集へお戻りください。">
+  <style>
+    main { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.5rem; text-align: center; }
+    h1 { color: #0077cc; margin-bottom: 0.5rem; }
+    .sub { color: #666; margin-bottom: 2rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 1.5rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.2rem; border-radius: 0.6rem; border: 1px solid #ccc;
+      background: #fff; color: #333; text-decoration: none; transition: background 0.2s ease;
+    }
+    .btn:hover { background: #f0f8ff; }
+    .hint { margin-top: 1.2rem; color: #888; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1><i class="fas fa-compass"></i> ページが見つかりません</h1>
+    <p class="sub">URLが変更されたか、存在しないページです。下のボタンから目的のページへどうぞ。</p>
+
+    <div class="actions">
+      <a class="btn" href="/"><i class="fas fa-home"></i> ホームに戻る</a>
+      <a class="btn" href="/guide.html"><i class="fas fa-book"></i> 使い方ガイド</a>
+      <a class="btn" href="/cases.html"><i class="fas fa-lightbulb"></i> 事例集</a>
+    </div>
+
+    <p class="hint">もしリンク切れに気づいたら、ホームの「お問い合わせ」から教えてください。</p>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("/nav.html")
+      .then(res => res.text())
+      .then(html => { document.getElementById("nav-placeholder").innerHTML = html; });
+  </script>
+</body>
+</html>
