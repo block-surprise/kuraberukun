@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>サブスクは月額か年額か？柔軟性とコスパのバランス - くらべる君</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png"> 
+  <link rel="apple-touch-icon" href="/fa.png"> 
+  <link rel="manifest" href="/fa.png">
+  <meta name="description" content="月額980円と年額9800円、どちらが本当におトク？サブスクの選び方を数字と暮らしの視点から考えます。">
+</head>
+<body>
+  <main>
+    <h1><i class="fas fa-calendar-alt"></i> サブスクは月額か年額か？柔軟性とコスパのバランス</h1>
+    <p class="sub">「月額980円」「年額9800円」…どっちが得？数字と暮らしの視点で考えてみよう。</p>
+
+    <section>
+      <h2>数字で見る「おトク」</h2>
+      <p>
+        月額980円のサービスを1年間使うと、合計11,760円。<br>
+        一方、年額プランなら9,800円。差額は1,960円、約17%の節約になります。
+      </p>
+      <p>
+        でも、もし3ヶ月で飽きてしまったら？<br>
+        年額プランは途中解約できないことも多く、結果的に損になることも…。
+      </p>
+    </section>
+
+    <section>
+      <h2>暮らしの中での「柔軟性」</h2>
+      <p>
+        サブスクは「使い続ける前提」で設計されていますが、実際にはライフスタイルの変化や気分の変化で使わなくなることもあります。
+      </p>
+      <p>
+        月額プランなら、やめたいときにすぐ解約できる安心感があります。<br>
+        一方、年額プランは「続ける覚悟」がある人にはおトクですが、途中でやめると損失が大きくなります。
+      </p>
+    </section>
+
+    <section>
+      <h2>数字と暮らし、どちらも大切に</h2>
+      <p>
+        サブスク選びは「数字の得」だけでなく、「自分の使い方に合っているか」がカギです。<br>
+        まずは月額で試してみて、気に入ったら年額に切り替えるのもひとつの方法です。
+      </p>
+      <p>
+        くらべる君の <a href="/monthly.html"><i class="fas fa-calculator"></i> 月額コストチェッカー</a> を使えば、月額と年額の差をすぐに試算できます。<br>
+        気になるサービスがあったら、ぜひチェックしてみてくださいね。
+      </p>
+    </section>
+  </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("/nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
+</body>
+</html>
