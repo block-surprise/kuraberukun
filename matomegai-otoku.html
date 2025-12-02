@@ -3,47 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>まとめ買いは本当に得？ - くらべる君記事</title>
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="まとめ買いは本当に得なのか？スーパーの事例をもとに、単品購入との違いを比較しました。">
+  <title>まとめ買いは本当に得？数字と暮らしで考える - くらべる君</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/fa.png"> 
+  <link rel="manifest" href="/fa.png">
+  <meta name="description" content="まとめ買いは本当に得なのか？数字と暮らしの視点から、単品購入との違いを比較します。くらべる君のチェッカーも紹介。">
 </head>
 <body>
   <main>
-    <h1>まとめ買いは本当に得？</h1>
-    <p class="sub">スーパーでよく見かける「まとめ買いセール」。果たして本当におトクなのでしょうか？</p>
+    <h1><i class="fas fa-boxes-stacked"></i> まとめ買いは本当に得？数字と暮らしで考える</h1>
+    <p class="sub">単価の差だけでなく、使い切れるか・保管できるかも大切な視点。</p>
 
     <section>
-      <h2>まとめ買いのメリット</h2>
+      <h2>数字で見る「おトク」</h2>
       <p>
-        まとめ買いは単品より安くなることが多く、1個あたりの単価を下げられるのが最大のメリットです。
-        飲料や調味料など、消費が早い商品では特に有効です。
+        スーパーでよく見かける「6本パック 980円」と「単品 180円」。<br>
+        一見するとまとめ買いの方が安そうですが、実際に計算してみるとどうでしょう？
+      </p>
+      <p>
+        くらべる君の「まとめ買いチェッカー」で試算すると、6本980円は1本あたり約163円。<br>
+        単品180円より約9%おトクという結果になります。
+      </p>
+      <p>
+        数字だけ見れば「まとめ買いの勝ち！」ですが、ここで終わらせるのはちょっと早いかも。
       </p>
     </section>
 
     <section>
-      <h2>まとめ買いのデメリット</h2>
+      <h2>暮らしの中での「損得」</h2>
       <p>
-        ただし「消費期限」「保管場所」「使い切れるか」が問題になります。
-        例えば6本パックを買っても、飲みきれずに期限切れになれば逆に損です。
+        まとめ買いには「消費期限」「保管スペース」「使い切れるか」という現実的な問題もあります。<br>
+        たとえば飲み物を6本買っても、飲みきれずに期限が切れてしまえば、結局は無駄になってしまいます。
+      </p>
+      <p>
+        また、冷蔵庫や棚に入りきらない量を買ってしまうと、生活動線が窮屈になったり、他の食品が入らなくなったりすることも。
+      </p>
+      <p>
+        「安いから買う」ではなく、「ちゃんと使い切れるか」「暮らしに合っているか」も大切な判断材料です。
       </p>
     </section>
 
     <section>
-      <h2>ツールで検証してみよう</h2>
+      <h2>数字と暮らし、どちらも大事</h2>
       <p>
-        くらべる君の「まとめ買いチェッカー」で計算すると、<br>
-        6本980円 → 1本163円、単品180円より約9%おトク。<br>
-        ただし消費ペースを考えないと、結果的に損になる可能性もあります。
+        まとめ買いは、うまく使えば節約につながる便利な手段です。<br>
+        でも、数字だけで判断せず、自分の生活スタイルと照らし合わせて考えることが大切です。
       </p>
-    </section>
-
-    <section>
-      <h2>まとめ</h2>
       <p>
-        まとめ買いは「数字上は得」でも「生活の中では損」になることもあります。
-        単価だけでなく、消費ペースや保管環境も含めて判断することが大切です。
+        くらべる君のツールは、そんな「数字の見える化」を助けてくれます。<br>
+        気になるときは、ぜひ <a href="/bulk.html"><i class="fas fa-calculator"></i> まとめ買いチェッカー</a> を使ってみてくださいね。
       </p>
     </section>
   </main>
+
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("/nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
 </body>
 </html>
