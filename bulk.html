@@ -199,6 +199,30 @@
       }
     }
   </script>
+  <script>
+  const adjustAdPos = () => {
+    // 忍者AdMaxの広告要素をすべて探す
+    const ads = document.querySelectorAll('div[id^="ninja_admax_"], [class^="ninja_admax_"]');
+    ads.forEach(ad => {
+      // 広告を無理やり画面の上端へ飛ばす
+      ad.style.setProperty('top', '0', 'important');
+      ad.style.setProperty('bottom', 'auto', 'important');
+      ad.style.setProperty('position', 'fixed', 'important');
+      ad.style.setProperty('z-index', '99999', 'important');
+    });
+
+    // ナビゲーションバーを最前面へ固定する
+    const nav = document.getElementById('nav-placeholder');
+    if (nav) {
+      nav.style.setProperty('position', 'fixed', 'important');
+      nav.style.setProperty('bottom', '0', 'important');
+      nav.style.setProperty('z-index', '2147483647', 'important');
+    }
+  };
+
+  // 1秒ごとに広告の位置をチェックして強制修正する（広告の読み込み遅延対策）
+  setInterval(adjustAdPos, 1000);
+</script>
 </body>
 </html>
 
