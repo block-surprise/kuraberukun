@@ -269,20 +269,5 @@ input:focus {
   .nav .label {
     font-size: 1rem;
   }
-  div[id^="ninja_admax_"], 
-    div[class^="ninja_admax_"] {
-      top: 0 !important;
-      bottom: auto !important;
-      position: fixed !important;
-      z-index: 99999 !important;
-    }
 
-    #nav-placeholder, 
-    #nav-placeholder > *, 
-    footer, 
-    nav {
-      position: fixed !important;
-      bottom: 0 !important;
-      z-index: 2147483647 !important;
-    }
 }
