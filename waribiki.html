@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>割引計算機 | 買い物中にサクッと計算</title>
+
+    <style>
+        :root {
+            --primary-color: #ef4444; /* セールっぽい赤 */
+            --bg-color: #fef2f2;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 { font-size: 1.25rem; text-align: center; margin-bottom: 20px; color: var(--primary-color); }
+
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.875rem; margin-bottom: 5px; font-weight: bold; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.25rem;
+            border: 2px solid #fee2e2;
+            border-radius: 8px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus { border-color: var(--primary-color); }
+
+        .preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .preset-buttons button {
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #f87171;
+            color: #f87171;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .preset-buttons button:active {
+            background: #f87171;
+            color: white;
+        }
+
+        .result-area {
+            background: #fff1f1;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .result-label { font-size: 0.875rem; color: #64748b; }
+        .result-price { font-size: 2rem; font-weight: bold; color: var(--primary-color); margin: 5px 0; }
+        .save-amount { font-size: 0.9rem; color: #059669; }
+
+        .article-space {
+            max-width: 400px;
+            width: 100%;
+            margin-top: 30px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>割引計算機</h1>
+    
+    <div class="input-group">
+        <label>元の価格 (円)</label>
+        <input type="number" id="price" placeholder="例: 1980" oninput="calculate()">
+    </div>
+
+    <div class="input-group">
+        <label>割引率 (%)</label>
+        <input type="number" id="discount" placeholder="例: 30" oninput="calculate()">
+    </div>
+
+    <div class="preset-buttons">
+        <button onclick="setDiscount(10)">10%引</button>
+        <button onclick="setDiscount(20)">20%引</button>
+        <button onclick="setDiscount(30)">30%引</button>
+        <button onclick="setDiscount(50)">半額</button>
+        <button onclick="setDiscount(70)">70%引</button>
+        <button onclick="setDiscount(8)">税込8%</button>
+    </div>
+
+    <div class="result-area">
+        <div class="result-label">割引後の価格</div>
+        <div class="result-price" id="finalPrice">¥ 0</div>
+        <div class="save-amount" id="saveAmount">¥ 0 お得！</div>
+    </div>
+</div>
+
+<div class="article-space">
+    <hr>
+    <h3>この計算ツールの特徴</h3>
+    <p>
+        「割引計算機」は、お買い物中に素早く割引後の価格を知るためのツールです。
+        面倒な計算を省き、元の値段と割引率を入れるだけで、支払額とお得になる金額を同時に表示します。
+    </p>
+    <p>
+        <strong>使い方：</strong><br>
+        1. 商品の元の値段を入力します。<br>
+        2. 割引率を入力するか、ボタンからパーセンテージを選んでください。<br>
+        3. リアルタイムで計算結果が表示されます。
+    </p>
+    <p>
+        消費税の計算（8%や10%）にも対応しているため、日々の買い物やセール時にぜひご活用ください。
+    </p>
+</div>
+
+<script>
+    function setDiscount(val) {
+        document.getElementById('discount').value = val;
+        calculate();
+    }
+
+    function calculate() {
+        const price = parseFloat(document.getElementById('price').value) || 0;
+        const discount = parseFloat(document.getElementById('discount').value) || 0;
+
+        // 割引額の計算
+        const saveAmount = Math.floor(price * (discount / 100));
+        const finalPrice = price - saveAmount;
+
+        // 表示の更新
+        document.getElementById('finalPrice').textContent = "¥ " + finalPrice.toLocaleString();
+        document.getElementById('saveAmount').textContent = "¥ " + saveAmount.toLocaleString() + " お得！";
+    }
+</script>
+
+</body>
+</html>
