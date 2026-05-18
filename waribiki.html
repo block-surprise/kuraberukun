@@ -142,7 +142,14 @@
         消費税の計算（8%や10%）にも対応しているため、日々の買い物やセール時にぜひご活用ください。
     </p>
 </div>
-
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch("nav.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-placeholder").innerHTML = html;
+      });
+  </script>
 <script>
     function setDiscount(val) {
         document.getElementById('discount').value = val;
